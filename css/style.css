@@ -1,0 +1,97 @@
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#050014;
+    font-family:'Segoe UI', system-ui, sans-serif; touch-action:none; user-select:none;
+    -webkit-user-select:none; overscroll-behavior:none; }
+  #game { display:block; position:fixed; inset:0; }
+  .overlay { position:fixed; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:flex-start; background:rgba(5,0,20,.88);
+    backdrop-filter:blur(6px); z-index:10; text-align:center;
+    transition:opacity .3s; padding:calc(58px + env(safe-area-inset-top, 0px)) 16px 16px; overflow-y:auto; }
+  .overlay.hidden { opacity:0; pointer-events:none; }
+  .overlay > :first-child { margin-top:auto; }
+  .overlay > :last-child { margin-bottom:auto; }
+  .overlay p { max-width:520px; }
+  h1 { color:#0ff; font-size:clamp(26px,7vw,52px); letter-spacing:2px;
+    text-shadow:0 0 20px #0ff, 0 0 60px #f0f; margin-bottom:14px; }
+  h2 { color:#0ff; font-size:clamp(20px,5vw,34px); margin-bottom:14px; text-shadow:0 0 15px #0ff; }
+  p { color:#ccc; font-size:clamp(13px,3.4vw,19px); margin-bottom:8px; }
+  .btn { margin-top:12px; padding:13px 40px; font-size:clamp(16px,4.2vw,24px);
+    font-weight:700; color:#050014; background:linear-gradient(90deg,#0ff,#f0f);
+    border:none; border-radius:50px; cursor:pointer; box-shadow:0 0 25px #0ff8;
+    transition:transform .15s; }
+  .btn:active { transform:scale(.93); }
+  .btn.small { padding:9px 22px; font-size:clamp(13px,3.4vw,17px); margin-top:8px; }
+  .btn.ghost { background:transparent; color:#0ff; border:2px solid #0ff; box-shadow:none; }
+  .btn:disabled { opacity:.35; box-shadow:none; cursor:default; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+  .diffBtn { padding:10px 20px; border-radius:14px; border:2px solid #555; background:#111;
+    color:#999; font-weight:700; font-size:clamp(13px,3.6vw,17px); cursor:pointer; }
+  .diffBtn.active { border-color:#0ff; color:#0ff; box-shadow:0 0 15px #0ff8; }
+  .topbar { position:fixed; top:calc(10px + env(safe-area-inset-top, 0px));
+    left:calc(var(--fx, 0px) + 12px); right:calc(var(--fx, 0px) + 12px); z-index:20;
+    display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
+  .topbar > * { pointer-events:auto; }
+  .pill { background:rgba(5,0,20,.65); border:1px solid #0ff4; color:#ff0;
+    border-radius:20px; padding:8px 16px; font-weight:800; font-size:clamp(14px,3.6vw,18px); }
+  .iconGroup { display:flex; gap:8px; }
+  .iconBtn { width:44px; height:44px; border-radius:12px; border:1px solid #0ff4;
+    background:rgba(5,0,20,.6); color:#0ff; font-size:20px; cursor:pointer; }
+  #scoreBig { color:#fff; font-size:clamp(48px,14vw,96px); font-weight:800;
+    text-shadow:0 0 30px #f0f; margin-bottom:4px; }
+  #bestLbl { color:#0ff; font-size:clamp(14px,3.5vw,20px); }
+  #newRecord { color:#ff0; font-weight:700; }
+  /* Скины */
+  #skinGrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+    gap:12px; width:100%; max-width:520px; max-height:50vh; overflow-y:auto; padding:6px; }
+  .skinCard { border:2px solid #333; border-radius:16px; padding:12px 8px;
+    background:#0d0d24; cursor:pointer; }
+  .skinCard.selected { border-color:#0ff; box-shadow:0 0 18px #0ff8; }
+  .skinCard.locked { opacity:.75; }
+  .skinPrev { width:54px; height:74px; margin:0 auto 8px; border-radius:12px; }
+  .skinName { color:#fff; font-size:14px; font-weight:700; margin-bottom:4px; }
+  .skinPrice { color:#ff0; font-size:13px; font-weight:700; }
+  /* Таблица лидеров */
+  #lbList { width:100%; max-width:420px; max-height:55vh; overflow-y:auto; }
+  .lbRow { display:flex; align-items:center; gap:12px; padding:10px 14px; margin:4px 0;
+    background:#0d0d24; border-radius:12px; color:#fff; font-size:15px; }
+  .lbRow.me { border:1px solid #0ff; box-shadow:0 0 12px #0ff6; }
+  .lbRank { width:34px; font-weight:800; color:#f0f; }
+  .lbScore { margin-left:auto; font-weight:800; color:#ff0; }
+  .hint { color:#888; font-size:12px; margin-top:10px; }
+  #errBox { position:fixed; left:0; right:0; bottom:0; z-index:99; background:#b00020;
+    color:#fff; padding:10px 14px; font:13px/1.4 monospace; display:none; white-space:pre-wrap; }
+  /* Задания */
+  #missions { width:100%; max-width:430px; margin-top:10px; }
+  .mTitle { color:#f0f; font-weight:800; font-size:clamp(12px,3.2vw,15px); letter-spacing:1px;
+    margin:6px 0 2px; text-align:left; text-shadow:0 0 10px #f0f; }
+  .mRow { display:flex; align-items:center; gap:10px; background:#0d0d24;
+    border:1px solid #2a2a55; border-radius:12px; padding:8px 12px; margin:6px 0;
+    color:#ccc; font-size:clamp(12px,3.2vw,14px); text-align:left; }
+  .mBar { flex:1; height:6px; min-width:50px; background:#181838; border-radius:3px; overflow:hidden; }
+  .mFill { height:100%; background:linear-gradient(90deg,#0ff,#f0f); border-radius:3px;
+    transition:width .4s; box-shadow:0 0 8px #0ff; }
+  .mRew { color:#ff0; font-weight:700; white-space:nowrap; }
+  /* Тост */
+  #toast { position:fixed; left:50%; bottom:14%; transform:translateX(-50%) translateY(24px);
+    background:rgba(13,13,36,.95); border:1px solid #0ff; color:#fff; padding:10px 22px;
+    border-radius:30px; font-weight:700; z-index:60; opacity:0; transition:all .3s;
+    pointer-events:none; font-size:clamp(13px,3.6vw,16px); box-shadow:0 0 22px #0ff6;
+    max-width:90vw; text-align:center; }
+  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  #rankLbl { color:#ff0; font-weight:800; margin-top:8px; font-size:clamp(13px,3.6vw,17px);
+    text-shadow:0 0 12px #ff0; }
+  /* телефон на боку — экран низкий, всё ужимаем */
+  @media (max-height:520px) {
+    h1 { margin-bottom:6px; font-size:24px; }
+    #tagline, #abilHint, #ctrlHint, #rankLbl { display:none; }
+    .diffBtn { padding:6px 14px; }
+    .overlay { padding-top:52px; }
+    .btn { margin-top:6px; padding:8px 28px; }
+    .overlay p { margin-bottom:4px; }
+    #missions { display:none; }
+    #skinGrid { max-height:62vh; }
+  }
+
+/* приветствие в меню */
+#hello { color:#0ff; font-weight:700; margin-bottom:4px; flex-shrink:0; }
+#hello:empty { display:none; }

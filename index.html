@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#050014">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Неоновый Гонщик</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+<div id="errBox"></div>
+<div id="toast"></div>
+
+<div class="topbar">
+  <div class="pill">💎 <span id="crystalCount">0</span><span id="crystalMul"></span></div>
+  <div class="iconGroup">
+    <button class="iconBtn" id="pauseBtn" title="Пауза">⏸️</button>
+    <button class="iconBtn" id="lbBtn" title="Топ игроков">🏆</button>
+    <button class="iconBtn" id="muteBtn" title="Звук">🔊</button>
+  </div>
+</div>
+
+<!-- ГЛАВНОЕ МЕНЮ -->
+<div class="overlay" id="menu">
+  <h1>НЕОНОВЫЙ ГОНЩИК</h1>
+  <p id="hello"></p>
+  <p id="tagline">Уворачивайся от препятствий, собирай кристаллы, покупай скины!</p>
+  <button class="btn small" id="dailyBtn" style="display:none">🎁</button>
+  <div class="row" id="diffRow">
+    <button class="diffBtn" data-diff="easy">ЛЕГКО</button>
+    <button class="diffBtn active" data-diff="normal">НОРМАЛ</button>
+    <button class="diffBtn" data-diff="hard">СЛОЖНО</button>
+  </div>
+  <div class="row" id="mapRow"></div>
+  <button class="btn" id="playBtn">ИГРАТЬ</button>
+  <p class="hint" id="abilHint">🛡️ Щит, 🧲 Магнит, ⏱️ Замедление и 🚀 Нитро падают на трассу!</p>
+  <div class="row">
+    <button class="btn small ghost" id="skinsBtn">МАШИНЫ</button>
+    <button class="btn small ghost" id="menuLbBtn">РЕЙТИНГ</button>
+    <button class="btn small ghost" id="achBtn">🏅 НАГРАДЫ</button>
+    <button class="btn small ghost" id="inviteBtn" style="display:none">👥 ПОЗВАТЬ ДРУЗЕЙ</button>
+  </div>
+  <div id="missions"></div>
+  <p id="rankLbl"></p>
+  <p class="hint" id="ctrlHint">👆 Веди пальцем, мышью или стрелками ← →</p>
+</div>
+
+<!-- ВЫБОР СКИНА -->
+<div class="overlay hidden" id="skins">
+  <h2 id="skinsTitle">ВЫБОР МАШИНЫ</h2>
+  <div id="skinGrid"></div>
+  <button class="btn small ghost" id="skinsBack">← НАЗАД</button>
+</div>
+
+<!-- ТАБЛИЦА ЛИДЕРОВ -->
+<div class="overlay hidden" id="leaderboard">
+  <h2 id="lbTitle">ТОП ИГРОКОВ</h2>
+  <div id="lbList"></div>
+  <p class="hint" id="lbHint"></p>
+  <button class="btn small ghost" id="lbBack">← НАЗАД</button>
+</div>
+
+<!-- НАГРАДЫ -->
+<div class="overlay hidden" id="achv">
+  <h2 id="achTitle">НАГРАДЫ</h2>
+  <div id="achList" style="width:100%;max-width:430px;max-height:55vh;overflow-y:auto"></div>
+  <button class="btn small ghost" id="achBack">← НАЗАД</button>
+</div>
+
+<!-- ПАУЗА -->
+<div class="overlay hidden" id="pause">
+  <h2 id="pauseTitle">ПАУЗА</h2>
+  <button class="btn" id="resumeBtn">ПРОДОЛЖИТЬ</button>
+  <div class="row">
+    <button class="btn small ghost" id="pRetryBtn">ЗАНОВО</button>
+    <button class="btn small ghost" id="pMenuBtn">В МЕНЮ</button>
+  </div>
+</div>
+
+<!-- КОНЕЦ ИГРЫ -->
+<div class="overlay hidden" id="gameover">
+  <div id="scoreBig">0</div>
+  <p id="bestLbl">Рекорд: 0</p>
+  <p id="newRecord"></p>
+  <button class="btn" id="reviveBtn">💎 ВОЗРОДИТЬСЯ</button>
+  <button class="btn small" id="adReviveBtn" style="display:none">📺 ВОЗРОДИТЬСЯ ЗА РЕКЛАМУ</button>
+  <button class="btn small" id="adDoubleBtn" style="display:none">📺 ×2 КРИСТАЛЛЫ</button>
+  <button class="btn" id="retryBtn">ЕЩЁ РАЗ</button>
+  <div class="row">
+    <button class="btn small ghost" id="shareBtn" style="display:none">📣 ПОДЕЛИТЬСЯ</button>
+    <button class="btn small ghost" id="goMenuBtn">В МЕНЮ</button>
+  </div>
+</div>
+
+<!-- vk-bridge с официального cdn. Если не загрузится, игра всё равно запустится, просто без функций вк -->
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+<script src="js/vk.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
